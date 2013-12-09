@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<!-- SoundAttempt2.html -->
+<html>
+
+<head>
+	<title>Sound attempt: Elm, HTML and Javascript</title>
+	<!-- elm-runtime.js and js compiled modules -->
+	<script src="resources/elm-runtime.js"></script>
+	<script src="build/SoundAttempt.js"></script>
+	<style>
+		#SoundAttempt 
+		{ 
+			width: 400px; 
+			height: 400px;
+			background-color: white;
+			border: 1px solid #babdb6;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="SoundAttempt"> Sound attempt embedded in HTML</div>  
+</body>
+
+<script type="text/javascript">
+	// Show the SoundAttempt moule in the "SoundAttempt" div
+	var soundButtonDiv = document.getElementById('SoundAttempt');
+	var soundButtons = Elm.embed(Elm.SoundAttempt, soundButtonDiv);
+	
+	// Create the audio for a click sound
+	var click = new Audio("click.wav");
+    click.volume = 0.50;
+
+	// Plays a sound when the value true is received, which is 
+	// exported from the SoundAttempt module as the 'click'
+	// event stream
+    soundButtons.recv('click', function (event){
+        if(event.value){
+            click.play();
+        }
+    });
+</script>
+<noscript>Sorry, your browser does not support JavaScript</noscript>
+</html> 

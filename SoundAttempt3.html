@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+  <title>Embedding Elm</title>
+  <script src="resources/elm-runtime.js"></script>
+  <script src="build/SoundAttempt.js"></script>
+  <noscript> Sorry, the browser does not support JavaScript! </noscript>
+  <style>
+  body {
+    background-image: url('resources/texture.png');
+    background-color: #d3d7cf;
+    font-family: "Lucida Grande","Trebuchet MS","Bitstream Vera Sans",Verdana,Helvetica,sans-serif;
+    font-size: 14px;
+  }
+  #sound-attempt {
+    width:  400px;
+    height: 400px;
+    background-color: white;
+    border: 1px solid #babdb6;
+  }
+  #column {
+     width: 420px;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+  }
+  </style>
+</head>
+
+<body>
+<div id="column">
+  <h1>Sound Attempt</h1>
+
+  <li>embed an Elm program in HTML</li>
+  
+  <div id="sound-attempt"></div>
+</div>
+</body>
+
+<script type="text/javascript">
+  // Show the stamp module in the "elm-stamps" div.
+  var soundButtonDiv = document.getElementById('sound-attempt');
+  var sound = Elm.embed(Elm.SoundAttempt, soundButtonDiv);
+
+  // Create the audio for a click sound
+	var click = new Audio("click.wav");
+    click.volume = 0.70;
+
+	// Plays a sound when the value true is received, which is 
+	// exported from the SoundAttempt module as the 'click'
+	// event stream
+    sound.recv('click', function (event){
+        if(event.value){
+            click.play();
+        }
+    });
+</script>
+
+</html>
